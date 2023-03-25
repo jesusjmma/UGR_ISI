@@ -149,7 +149,20 @@ Una vez definidas las capas y lo que hacen, hay que diseñarlas:
 
 # Tema 3. Acceso a los datos
 
-## Bases de datos relacionales y herramientas de O/R mapping.
+Hay varias formas de acceso a los datos:
+
+- **Registros activos** (desde el código de nuestras clases hacemos CRUD en la base de datos)
+- **Gateways** (clases auxiliares para CRUD en la base de datos)
+- **Herramientas de O/R Mapping** (herramientas externas que hacen el trabajo de CRUD)
+
+## Bases de datos relacionales: SQL
+
+Para acceder a las bases de datos relacionales desde nuestra aplicación necesitamos una API. De esta forma podremos insertar sentencias SQL en nuestra aplicación.
+
+
+## Herramientas de O/R mapping.
+
+Suelen generar automáticamente código del estilo "registros activos" que incorporan a nuestro código.   
 
 ## Bases de datos distribuidas: fragmentación, asignación de recursos y replicación de datos.
 
