@@ -168,7 +168,21 @@ Suelen generar automáticamente código del estilo "registros activos" que incor
 
 ## Bases de datos NoSQL: key-value stores, wide-column stores, document stores & graph DBMSs.
 
+En un sistema distribuido son recomendables estas características:
+- Consistencia: Todos los usuario vean la misma versión de los datos
+- Disponibilidad: Aunque falle un nodo del sistema, éste pueda seguir funcionando con normalidad
+- Tolerante a particiones: Aunque falle la CONEXIÓN entre los nodos, éste debe de poder seguir funcionando con normalidad.
+
+El **Teorema CAP** nos dice que en ciertos casos extremos tenemos que prescindir de una de las 3 características:
+- **Sistema AP**: Sacrificamos la consistencia.
+- **Sistemas CP**: Sacrificamos la disponibilidad.
+- **Sistemas CA**: Sacrificamos la tolerancia a particiones.
+
+Los sitemas relacionales son todos de tipo **CA** (sacrifican la tolerancia a particiones).
+
+
 ## Bases de datos multidimensionales: data warehousing.
+[Esto es lo que estamos viendo en la asignatura SMD]
 
 # Tema 4. Integración de datos
 
@@ -198,12 +212,56 @@ Suelen generar automáticamente código del estilo "registros activos" que incor
 
 ## Implementación: logs de transacciones & versiones.
 
+Checkpoint == Backup full de la BD
+
+Haciendo **checkpoints** no tenemos rehacer el log completo en caso de fallo. Problema: se tiene que parar la BD.
+
+Habiendo **checkpoints no quiescentes** puede seguir funcionando la BD. Se indica en el log cuando empieza y termina el checkpoint y las operaciones de la BD de entre medias se repiten.
+
+Conforme se van haciendo checkpoints, se va vaciando el log. El log puede reutilizar segmentos y también ser ampliado sobre la marcha.
+
+### Logs vs. Versioning
+
+Con el versioning en lugar de tener logs, tenemos las versiones antiguas de los datos. El dato es un objeto inmutable y cuando un dato debe de cambiar se modifica por otro objeto y se mantiene en memoria el anterior, por si hubiese que restaurarlo.
+
+### Bloqueo pesimista vs. Bloqueo optimista
+
+En el bloqueo pesimista se bloquean los datos que están en proceso de ser modificados. Solo una transacción puede acceder a los datos.
+
+En el bloqueo optimista se permite que todo el mundo modifique los datos hasta que a la hora de ir a guardarlos estos dan conflicto (Ej: Git).
+
 ## Procesamiento de transacciones distribuidas: 2-phase commit & 3-phase commit.
 
+### Uso de colas de mensajes
+
+Es recomendable el protocolo de **commit en 2 fases**. Esto es costoso y conlleva una gran cantidad de operaciones.
+
+- Fase 1: Preparación
+- Fase 2: Hacer el commit
+
 ## El teorema CAP: BASE vs. ACID.
+(ver diapositivas)
 
 # Tema 7. Seguridad en los sistemas de información
 
 ## Fundamentos: Técnicas criptográficas, funciones hash, firmas digitales y certificados.
+
+### Criptografía    
+
+#### Criptografía de clave privada
+
+#### Criptografía de clave pública
+
+### Funciones hash
+
+### Firmas digitales y certificados
+
+### Autentificación
+
+### Comunicaciones seguras
+
+### Seguridad en internet
+
+### 
 
 ## Caso práctico: Seguridad en aplicaciones web.
